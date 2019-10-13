@@ -20,7 +20,7 @@ Conforme especificação dada ao grupo por meio de sorteio utilizaremos os segui
 **_4. Lista de itens a serem implementados_**
 
 - [x] Fonte de informação aleatória
-- [ ] Codificador de canal convulacional com razões de 2/3 e 3/4
+- [x] Codificador de canal convulacional com razões de 2/3 e 3/4
 - [ ] Moduladora QPSK e 16QAM
 - [ ] Canal AWG (Ruído branco genérico)
 - [ ] Demoduladora QPSK e 16QAM
