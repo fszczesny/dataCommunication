@@ -14,16 +14,16 @@ Modelar um sistema de comunicação de dados completo. Mais informações nos ar
 
 Conforme especificação dada ao grupo por meio de sorteio utilizaremos os seguintes parâmetros:
 
-* Modulação: QPSK-16QAM
-* Código de Canal: Convolucional R={2/3, 3/4}
+* Modulação: QPSK e 16QAM
+* Código de Canal: Convolucional R={2/3 e 3/4}
 
 **_4. Lista de itens a serem implementados_**
 
 - [ ] Fonte de informação aleatória
 - [ ] Codificador de canal convulacional com razões de 2/3 e 3/4
-- [ ] Moduladora QPSK-16QAM
+- [ ] Moduladora QPSK e 16QAM
 - [ ] Canal AWG (Ruído branco genérico)
-- [ ] Demoduladora QPSK-16QAM
+- [ ] Demoduladora QPSK e 16QAM
 - [ ] Decodificador de canal convulacional com razões de 2/3 e 3/4
 - [ ] Receptor de informação
 - [ ] Analisador de informação. Deve procesar a informação recebida e gerar os graficos esperados
