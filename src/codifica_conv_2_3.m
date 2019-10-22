@@ -7,3 +7,4 @@ function codifica_conv_2_3 = codifica_conv_2_3(mensagemBinaria)
     codigoCalculado = convenc(mensagemBinaria,trellis1);
     codifica_conv_2_3 = codigoCalculado;
 end
+

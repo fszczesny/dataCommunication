@@ -1,18 +1,49 @@
 clear all;
 close all;
 
-% Constantes e definicoes
-    numeroDeBits = 12000;   % Quantidade de bits simulados 1500bytes * 8bits por byte
+% Constantes de entrada
+nframes = 1;                  % numero de frames simulados
+bitsFrame = 1200;             % quantidade de bits em um frame
 
-% FONTE DE INFORMAÇÃO + CODIFICAÇÃO DE FONTE
-    % Cria vetor de mensagem com numeros complexos
-    mensagemComplexa = complex(2*randi(2, 1, numeroDeBits)-3, 0); % Vetor complexo com parte real {-1, 1} e parte imaginaria = 0
-    % Converte a mensagem complexa em binaria zerando parte negativa
-    mensagemBinaria = sign(real(mensagemComplexa));                                            
-    mensagemBinaria(mensagemBinaria == -1) = 0;
+% Constantes derivadas
+nbits = nframes*bitsFrame;    % numero de bits simulados
+nbits
 
-% CODIFICADOR DE CANAL - TIPO CONVULACIONAL RAZAO 2/3 E 3/4
-    mensagemCodificada_2_3 = codifica_conv_2_3(mensagemBinaria);
-    size_2_3 = length(mensagemCodificada_2_3);
-    mensagemCodificada_3_4 = codifica_conv_3_4(mensagemBinaria);
-    size_3_4 = length(mensagemCodificada_3_4);
+% -----------------------------
+% Fonte de informacao
+msg = fonte(nbits);
+
+% -----------------------------
+% Codificador
+% msgCod_2_3 = codificador(msg, 2/3);
+% length(msgCod_2_3);
+msgCod_3_4 = codificador(msg, 3/4);
+length(msgCod_3_4);
+
+% -----------------------------
+% Modulador
+% modQPSK = mod_qpsk(msgCod)
+% mod16QAM = mod_16qam(msgCod)
+
+% -----------------------------
+% Canal AWGN
+% saidaCanal = canalAWGN(mod)
+
+% -----------------------------
+% Demodulador
+% dem = dem_qpsk(saidaCanal)
+
+% -----------------------------
+% Decodificador
+% msgDec_2_3 = decodificador(msgCod_2_3, 2/3);
+% length(msgDec_2_3)
+msgDec_3_4 = decodificador(msgCod_3_4, 3/4);
+length(msgDec_3_4)
+
+% -----------------------------
+% Comparador
+%isequal(msg, msgDec_2_3)
+isequal(msg, msgDec_3_4)
+
+
+
