@@ -5,7 +5,7 @@ close all;
 % Constantes de entrada
 nframes = 1600;               % numero de frames simulados
 bitsFrame = 1500*8;           % quantidade de bits em um frame
-EbN0dB = 20;
+EbN0dB = 10;
 % EbN0dB = 5 => BER ~ 10^-2; FER ~ 10^0
 % EbN0dB = 20 => BER ~ 0; FER ~ 0
 
@@ -55,13 +55,7 @@ for c = 1:length(codRate)
         
         % -----------------------------
         % Comparador
-        x = reshape(msg, [nframes, bitsFrame]);
-        y = reshape(msgDec, [nframes, bitsFrame]);
-        errors = biterr(x, y, [], 'row-wise');
-        bitErrors = sum(errors);
-        frameErrors = sum(errors > 0);
-        BER = bitErrors / nbits;
-        FER = frameErrors / nframes;
+        [BER, FER] = comparador(msg, msgDec, nframes);
         fprintf('>>> BER (%s - CONV R=%s): %f\n', mod, rfrac, BER);
         fprintf('>>> FER (%s - CONV R=%s): %f\n\n', mod, rfrac, FER);
     end
