@@ -24,7 +24,7 @@ Conforme especificação dada ao grupo por meio de sorteio utilizaremos os segui
 - [ ] Moduladora QPSK e 16QAM
 - [ ] Canal AWG (Ruído branco genérico)
 - [ ] Demoduladora QPSK e 16QAM
-- [ ] Decodificador de canal convulacional com razões de 2/3 e 3/4
+- [x] Decodificador de canal convulacional com razões de 2/3 e 3/4 (Ajustar SOFT e TB, depois da modulação!!!)
 - [ ] Receptor de informação
 - [ ] Analisador de informação. Deve procesar a informação recebida e gerar os graficos esperados
 
