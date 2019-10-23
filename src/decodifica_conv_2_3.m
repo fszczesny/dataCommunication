@@ -2,11 +2,12 @@
 % https://www.mathworks.com/help/comm/ref/poly2trellis.html
 % https://www.mathworks.com/help/comm/ref/vitdec.html
 
-% MUDAR PARA SOFT!!
+% AJUSTAR tb!!!
 
 function dec = decodifica_conv_2_3(msgCod)
-    tb = 8;
-    trellis1 = poly2trellis([5 4],[23 35 0; 0 5 13]);
-    dec = vitdec(msgCod,trellis1,tb,'trunc','hard');
+    tb = 32;
+    t = poly2trellis([5 4],[23 35 0; 0 5 13]);
+    % Decodificacao SOFT
+    dec = vitdec(msgCod,t,tb,'trunc','unquant');
 end
 
