@@ -21,10 +21,12 @@ Conforme especificação dada ao grupo por meio de sorteio utilizaremos os segui
 
 - [x] Fonte de informação aleatória
 - [x] Codificador de canal convulacional com razões de 2/3 e 3/4
-- [ ] Moduladora QPSK e 16QAM
+- [x] Moduladora 16QAM
+- [ ] Moduladora QPSK
 - [ ] Canal AWG (Ruído branco genérico)
-- [ ] Demoduladora QPSK e 16QAM
-- [x] Decodificador de canal convulacional com razões de 2/3 e 3/4 (Ajustar SOFT e TB, depois da modulação!!!)
+- [x] Demoduladora 16QAM
+- [ ] Demoduladora QPSK
+- [x] Decodificador de canal convulacional com razões de 2/3 e 3/4 (Ajustar TBL!)
 - [ ] Receptor de informação
 - [ ] Analisador de informação. Deve procesar a informação recebida e gerar os graficos esperados
 
