@@ -26,10 +26,10 @@ msgCod_3_4 = codificador(msg, 3/4);
 
 % -----------------------------
 % Modulador
-txSig_2_3_16qam = mod_16qam(msgCod_2_3);
-txSig_3_4_16qam = mod_16qam(msgCod_3_4);
-txSig_2_3_qpsk = mod_qpsk(msgCod_2_3);
-txSig_3_4_qpsk = mod_qpsk(msgCod_3_4);
+txSig_2_3_16qam = modulador(msgCod_2_3, '16-QAM');
+txSig_3_4_16qam = modulador(msgCod_3_4, '16-QAM');
+txSig_2_3_qpsk = modulador(msgCod_2_3, 'QPSK');
+txSig_3_4_qpsk = modulador(msgCod_3_4, 'QPSK');
 % DEBUG:
 % fprintf('Simbs mod. com 16-QAM (CONV R=2/3): %d\n', length(txSig_2_3_16qam));
 % fprintf('Simbs mod. com 16-QAM (CONV R=3/4): %d\n', length(txSig_3_4_16qam));
@@ -48,10 +48,10 @@ rxSig_3_4_qpsk = txSig_3_4_qpsk;
 
 % -----------------------------
 % Demodulador
-rxCodMsg_2_3_16qam = dem_16qam(rxSig_2_3_16qam);
-rxCodMsg_3_4_16qam = dem_16qam(rxSig_3_4_16qam);
-rxCodMsg_2_3_qpsk = dem_qpsk(rxSig_2_3_qpsk);
-rxCodMsg_3_4_qpsk = dem_qpsk(rxSig_3_4_qpsk);
+rxCodMsg_2_3_16qam = demodulador(rxSig_2_3_16qam, '16-QAM');
+rxCodMsg_3_4_16qam = demodulador(rxSig_3_4_16qam, '16-QAM');
+rxCodMsg_2_3_qpsk = demodulador(rxSig_2_3_qpsk, 'QPSK');
+rxCodMsg_3_4_qpsk = demodulador(rxSig_3_4_qpsk, 'QPSK');
 % DEBUG:
 % fprintf('Bits demod. com 16-QAM (CONV R=2/3): %d\n', length(rxCodMsg_2_3_16qam));
 % fprintf('Bits demod. com 16-QAM (CONV R=3/4): %d\n', length(rxCodMsg_3_4_16qam));
