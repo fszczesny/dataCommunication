@@ -1,12 +1,15 @@
 clear all;
 close all;
+rng 'default';
 
 % Constantes de entrada
 nframes = 1;                  % numero de frames simulados
 bitsFrame = 1200;             % quantidade de bits em um frame
 
+% ============================================================
 % Constantes derivadas
 nbits = nframes*bitsFrame;    % numero de bits simulados
+EbN0dB = 10;
 % DEBUG:
 % fprintf('Bits simulados: %d\n', nbits);
 
@@ -38,13 +41,10 @@ txSig_3_4_qpsk = modulador(msgCod_3_4, 'QPSK');
 
 % -----------------------------
 % Canal AWGN
-% TO-DO: canalAWGN (funcao MatLAB: awgn)
-% saidaCanal = canalAWGN(mod)
-% TEMP:
-rxSig_2_3_16qam = txSig_2_3_16qam;
-rxSig_3_4_16qam = txSig_3_4_16qam;
-rxSig_2_3_qpsk = txSig_2_3_qpsk;
-rxSig_3_4_qpsk = txSig_3_4_qpsk;
+rxSig_2_3_16qam = canalAWGN(txSig_2_3_16qam, EbN0dB, '16-QAM', 2/3);
+rxSig_3_4_16qam = canalAWGN(txSig_3_4_16qam, EbN0dB, '16-QAM', 3/4);
+rxSig_2_3_qpsk = canalAWGN(txSig_2_3_qpsk, EbN0dB, 'QPSK', 2/3);
+rxSig_3_4_qpsk = canalAWGN(txSig_3_4_qpsk, EbN0dB, 'QPSK', 3/4);
 
 % -----------------------------
 % Demodulador
