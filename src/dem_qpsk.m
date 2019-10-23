@@ -1,5 +1,13 @@
-function demMsg = dem_qpsk(rxSig)
+function demMsg = dem_qpsk(rxSig, EbN0dB, r)
     M = 4;  % QPSK
-    demodulador = comm.PSKDemodulator(M, 'BitOutput', true, 'DecisionMethod', 'Approximate log-likelihood ratio');
+    k = log2(M);
+    snr_dB = EbN0dB + 10*log10(r*k);
+    noiseVar = 10 .^(-snr_dB/10);
+    demodulador = comm.PSKDemodulator(M, ...
+        'BitOutput', true, ...
+        'PhaseOffset', pi/4, ...
+        'DecisionMethod', 'Approximate log-likelihood ratio', ...
+        'Variance', noiseVar);
+    % constellation(demodulador)
     demMsg = step(demodulador, rxSig);
 end

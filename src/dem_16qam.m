@@ -1,5 +1,13 @@
-function demMsg = dem_16qam(rxSig)
+function demMsg = dem_16qam(rxSig, EbN0dB, r)
     M = 16; % 16-QAM
-    demodulador = comm.RectangularQAMDemodulator(M,'BitOutput',true,'DecisionMethod','Approximate log-likelihood ratio');
+    k = log2(M);
+    snr_dB = EbN0dB + 10*log10(r*k);
+    noiseVar = 10 .^(-snr_dB/10);
+    demodulador = comm.RectangularQAMDemodulator(M, ...
+        'BitOutput', true, ...
+        'DecisionMethod', 'Approximate log-likelihood ratio', ...
+        'NormalizationMethod', 'Average power', ...
+        'Variance', noiseVar);
+    % constellation(demodulador)
     demMsg = step(demodulador, rxSig);
 end
