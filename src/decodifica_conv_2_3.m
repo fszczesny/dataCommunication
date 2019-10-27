@@ -1,8 +1,7 @@
 % Codigo baseado na documentação do matlab disponivel nos links a seguir:
 % https://www.mathworks.com/help/comm/ref/poly2trellis.html
 % https://www.mathworks.com/help/comm/ref/vitdec.html
-
-% AJUSTAR tb!!!
+% https://www.edaboard.com/showthread.php?148726-Q-traceback-depth-in-viterbi-decoding
 
 function dec = decodifica_conv_2_3(msgCod)
     tb = 32;

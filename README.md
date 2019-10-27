@@ -26,7 +26,7 @@ Conforme especificação dada ao grupo por meio de sorteio utilizaremos os segui
 - [x] Canal AWGN (Ruído branco genérico)
 - [x] Demoduladora 16QAM
 - [x] Demoduladora QPSK
-- [x] Decodificador de canal convulacional com razões de 2/3 e 3/4 (Ajustar TBL!)
+- [x] Decodificador de canal convulacional com razões de 2/3 e 3/4
 - [x] Receptor de informação
 - [ ] Analisador de informação. Deve procesar a informação recebida e gerar os graficos esperados
 
