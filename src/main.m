@@ -18,6 +18,7 @@ modType = {'16-QAM', 'QPSK'}; % tipos de modulacao simulados
 
 z = length(codRate) * length(modType);
 ber = zeros(z, length(EbN0dB_vec));
+fer = zeros(z, length(EbN0dB_vec));
 leg = cell(1, z);
     
 % -----------------------------
@@ -69,19 +70,31 @@ for i = 1:length(EbN0dB_vec)
             [BER, FER] = comparador(msg, msgDec, nframes);
             
             ber(j,i) = BER;
-            fprintf('%f\n', BER);
-            % fprintf('>>> FER (%s - CONV R=%s): %f\n\n', mod, rfrac, FER);
+            fer(j,i) = FER;
+            fprintf('%f - FER = %f\n', BER, FER);
         end
     end
     fprintf('\n');
 end
 
+% Plot BER vs Eb/N0
+figure;
 semilogy(EbN0dB_vec, ber(1,:), EbN0dB_vec, ber(2,:), ...
     EbN0dB_vec, ber(3,:), EbN0dB_vec, ber(4,:), 'LineWidth', 2);
 grid on;
 title('Taxa de erros para QPSK e 16-QAM com códigos convolucionais R={2/3,3/4}');
 legend(leg);
 ylabel('BER');
+xlabel('Eb/N0 (dB)');
+
+% Plot FER vs Eb/N0
+figure;
+semilogy(EbN0dB_vec, fer(1,:), EbN0dB_vec, fer(2,:), ...
+    EbN0dB_vec, fer(3,:), EbN0dB_vec, fer(4,:), 'LineWidth', 2);
+grid on;
+title('Taxa de erro de frame para QPSK e 16-QAM com códigos convolucionais R={2/3,3/4}');
+legend(leg);
+ylabel('FER');
 xlabel('Eb/N0 (dB)');
 
 fprintf('Done!\n');
