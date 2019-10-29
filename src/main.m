@@ -19,6 +19,7 @@ modType = {'16-QAM', 'QPSK'}; % tipos de modulacao simulados
 z = length(codRate) * length(modType);
 ber = zeros(z, length(EbN0dB_vec));
 fer = zeros(z, length(EbN0dB_vec));
+ferCalc = zeros(z, length(EbN0dB_vec));
 leg = cell(1, z);
     
 % -----------------------------
@@ -33,7 +34,7 @@ for i = 1:length(EbN0dB_vec)
     for c = 1:length(codRate)
         r = codRate(c);
         rfrac = strtrim(rats(r));
-
+        
         % -----------------------------
         % Codificador
         msgCod = codificador(msg, r);
@@ -41,11 +42,11 @@ for i = 1:length(EbN0dB_vec)
 
         for m = 1:length(modType)
             mod = modType{m};
-            
+
             j = (c-1) * length(codRate) + m;
             leg{j} = strcat(mod, ' + CONV R=', rfrac);
             fprintf('>> (%d/%d) %s - CONV R=%s: BER = ', j, length(codRate)*length(modType), mod, rfrac);
-
+            
             % -----------------------------
             % Modulador
             txSig = modulador(msgCod, mod);
@@ -67,13 +68,14 @@ for i = 1:length(EbN0dB_vec)
 
             % -----------------------------
             % Comparador
-            [BER, FER] = comparador(msg, msgDec, nframes);
-            
+            [BER, FER, FERCalc] = comparador(msg, msgDec, nframes);
             ber(j,i) = BER;
             fer(j,i) = FER;
-            fprintf('%f - FER = %f\n', BER, FER);
+            ferCalc(j,i) = FERCalc;
+            fprintf('%f - FER = %f FER (calc) = %f\n', ber(j,i), fer(j,i), ferCalc(j,i));
         end
     end
+    
     fprintf('\n');
 end
 
@@ -95,6 +97,16 @@ grid on;
 title('Taxa de erro de frame para QPSK e 16-QAM com códigos convolucionais R={2/3,3/4}');
 legend(leg);
 ylabel('FER');
+xlabel('Eb/N0 (dB)');
+
+% Plot FER Calculado vs Eb/N0
+figure;
+semilogy(EbN0dB_vec, ferCalc(1,:), EbN0dB_vec, ferCalc(2,:), ...
+    EbN0dB_vec, ferCalc(3,:), EbN0dB_vec, ferCalc(4,:), 'LineWidth', 2);
+grid on;
+title('Taxa de erro de frame (calculado )para QPSK e 16-QAM com códigos convolucionais R={2/3,3/4}');
+legend(leg);
+ylabel('FER Calculado');
 xlabel('Eb/N0 (dB)');
 
 fprintf('Done!\n');
