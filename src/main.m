@@ -26,31 +26,29 @@ leg = cell(1, z);
 % Fonte de informacao
 msg = fonte(nbits);
 fprintf('Bits da msg original: %d\n\n', length(msg));
-
-for i = 1:length(EbN0dB_vec)
-    EbN0dB = EbN0dB_vec(i);
-    fprintf('> EbN0 = %f dB (%d/%d)\n', EbN0dB, i, length(EbN0dB_vec));
     
-    for c = 1:length(codRate)
-        r = codRate(c);
-        rfrac = strtrim(rats(r));
-        
+for c = 1:length(codRate)
+    r = codRate(c);
+    rfrac = strtrim(rats(r));
+    
+    % -----------------------------
+    % Codificador
+    msgCod = codificador(msg, r);
+
+    for m = 1:length(modType)
+        mod = modType{m};
+
+        j = (c-1) * length(codRate) + m;
+        leg{j} = strcat(mod, ' + CONV R=', rfrac);
+        fprintf('> (%d/%d) %s - CONV R=%s\n', j, z, mod, rfrac);
+
         % -----------------------------
-        % Codificador
-        msgCod = codificador(msg, r);
-        % fprintf('> Bits da msg cod. com CONV R=%s: %d\n', rfrac, length(msgCod));
+        % Modulador
+        txSig = modulador(msgCod, mod);
 
-        for m = 1:length(modType)
-            mod = modType{m};
-
-            j = (c-1) * length(codRate) + m;
-            leg{j} = strcat(mod, ' + CONV R=', rfrac);
-            fprintf('>> (%d/%d) %s - CONV R=%s: BER = ', j, length(codRate)*length(modType), mod, rfrac);
-            
-            % -----------------------------
-            % Modulador
-            txSig = modulador(msgCod, mod);
-            % fprintf('>> Simbs mod. com %s (CONV R=%s): %d\n', mod, rfrac, length(txSig));
+        for i = 1:length(EbN0dB_vec)
+            EbN0dB = EbN0dB_vec(i);
+            fprintf('>> (%d/%d) EbN0 = %d dB => ', i, length(EbN0dB_vec), EbN0dB);
 
             % -----------------------------
             % Canal AWGN
@@ -59,12 +57,10 @@ for i = 1:length(EbN0dB_vec)
             % -----------------------------
             % Demodulador
             rxCodMsg = demodulador(rxSig, EbN0dB, mod, r);
-            % fprintf('>> Bits demod. com %s (CONV R=%s): %d\n', mod, rfrac, length(rxCodMsg));
 
             % -----------------------------
             % Decodificador
             msgDec = decodificador(rxCodMsg, r);
-            % fprintf('>> Bits decod. com %s (CONV R=%s): %d\n', mod, rfrac, length(msgDec));
 
             % -----------------------------
             % Comparador
@@ -72,10 +68,9 @@ for i = 1:length(EbN0dB_vec)
             ber(j,i) = BER;
             fer(j,i) = FER;
             ferCalc(j,i) = FERCalc;
-            fprintf('%f - FER = %f FER (calc) = %f\n', ber(j,i), fer(j,i), ferCalc(j,i));
+            fprintf('BER = %f, FER = %f, FER (calc) = %f\n', ber(j,i), fer(j,i), ferCalc(j,i));
         end
     end
-    
     fprintf('\n');
 end
 
@@ -84,7 +79,7 @@ figure;
 semilogy(EbN0dB_vec, ber(1,:), EbN0dB_vec, ber(2,:), ...
     EbN0dB_vec, ber(3,:), EbN0dB_vec, ber(4,:), 'LineWidth', 2);
 grid on;
-title('Taxa de erros para QPSK e 16-QAM com códigos convolucionais R={2/3,3/4}');
+title('Taxa de erros para QPSK e 16-QAM com cï¿½digos convolucionais R={2/3,3/4}');
 legend(leg);
 ylabel('BER');
 xlabel('Eb/N0 (dB)');
@@ -94,7 +89,7 @@ figure;
 semilogy(EbN0dB_vec, fer(1,:), EbN0dB_vec, fer(2,:), ...
     EbN0dB_vec, fer(3,:), EbN0dB_vec, fer(4,:), 'LineWidth', 2);
 grid on;
-title('Taxa de erro de frame para QPSK e 16-QAM com códigos convolucionais R={2/3,3/4}');
+title('Taxa de erro de frame para QPSK e 16-QAM com cï¿½digos convolucionais R={2/3,3/4}');
 legend(leg);
 ylabel('FER');
 xlabel('Eb/N0 (dB)');
@@ -104,7 +99,7 @@ figure;
 semilogy(EbN0dB_vec, ferCalc(1,:), EbN0dB_vec, ferCalc(2,:), ...
     EbN0dB_vec, ferCalc(3,:), EbN0dB_vec, ferCalc(4,:), 'LineWidth', 2);
 grid on;
-title('Taxa de erro de frame (calculado )para QPSK e 16-QAM com códigos convolucionais R={2/3,3/4}');
+title('Taxa de erro de frame (calculado )para QPSK e 16-QAM com cï¿½digos convolucionais R={2/3,3/4}');
 legend(leg);
 ylabel('FER Calculado');
 xlabel('Eb/N0 (dB)');
