@@ -2,6 +2,16 @@ clear all;
 close all;
 % rng 'default';
 
+% VALORES DE SIMULACAO PARA RELATORIO - EXECUCAO EM APROXIMADAMENTE 12h EM UM i7-7700
+% Constantes de entrada
+%nframes = 25*100;                % numero de frames simulados
+%bitsFrame = 25*1500*8;           % quantidade de bits em um frame
+%minBitErrs = 25*3000;            % quantidade minima de erros de bit simulados
+%minBits = 2e7;                % quantidade minima de bits simulados
+%minFrameErrs = 25*300;           % quantidade minima de erros de frame simulados
+%minFrames = 25*2000;             % quantidade minima de frames simulados
+
+% VALORES DE SIMULACAO PARA CONFERENCIA - EXECUCAO EM APROXIMADAMENTE 1h EM UM i7-7700 - GERA GRAFICOS AQUADRADADOS
 % Constantes de entrada
 nframes = 100;                % numero de frames simulados
 bitsFrame = 1500*8;           % quantidade de bits em um frame
@@ -81,7 +91,7 @@ figure;
 semilogy(EbN0dB_vec, ber(1,:), EbN0dB_vec, ber(2,:), ...
     EbN0dB_vec, ber(3,:), EbN0dB_vec, ber(4,:), 'LineWidth', 2);
 grid on;
-title('Taxa de erros para QPSK e 16-QAM com códigos convolucionais R={2/3,3/4}');
+title('Taxa de erros para QPSK e 16-QAM com cï¿½digos convolucionais R={2/3,3/4}');
 legend(leg);
 ylabel('BER');
 xlabel('Eb/N0 (dB)');
@@ -91,7 +101,7 @@ figure;
 semilogy(EbN0dB_vec, fer(1,:), EbN0dB_vec, fer(2,:), ...
     EbN0dB_vec, fer(3,:), EbN0dB_vec, fer(4,:), 'LineWidth', 2);
 grid on;
-title('Taxa de erro de frame para QPSK e 16-QAM com códigos convolucionais R={2/3,3/4}');
+title('Taxa de erro de frame para QPSK e 16-QAM com cï¿½digos convolucionais R={2/3,3/4}');
 legend(leg);
 ylabel('FER Medido');
 xlabel('Eb/N0 (dB)');
@@ -101,7 +111,7 @@ figure;
 semilogy(EbN0dB_vec, ferCalc(1,:), EbN0dB_vec, ferCalc(2,:), ...
     EbN0dB_vec, ferCalc(3,:), EbN0dB_vec, ferCalc(4,:), 'LineWidth', 2);
 grid on;
-title('Taxa de erro de frame para QPSK e 16-QAM com códigos convolucionais R={2/3,3/4}');
+title('Taxa de erro de frame para QPSK e 16-QAM com cï¿½digos convolucionais R={2/3,3/4}');
 legend(leg);
 ylabel('FER Calculado');
 xlabel('Eb/N0 (dB)');
