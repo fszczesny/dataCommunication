@@ -5,7 +5,7 @@ close all;
 % VALORES DE SIMULACAO PARA RELATORIO - EXECUCAO EM APROXIMADAMENTE 12h EM UM i7-7700
 % Constantes de entrada
 %nframes = 25*100;                % numero de frames simulados
-%bitsFrame = 25*1500*8;           % quantidade de bits em um frame
+%bitsFrame = 1500*8;           % quantidade de bits em um frame
 %minBitErrs = 25*3000;            % quantidade minima de erros de bit simulados
 %minBits = 2e7;                % quantidade minima de bits simulados
 %minFrameErrs = 25*300;           % quantidade minima de erros de frame simulados
